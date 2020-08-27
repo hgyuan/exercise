@@ -35,7 +35,7 @@ function printOrder(result, play, format, thisAmount, perf, type) {
   return result = getPrintOrderModel(type, result, play, format, thisAmount, perf);
 }
 
-function printAmountOwedAndEarned(result, format, totalAmount, volumeCredits,type) {
+function printAmountOwedAndEarned(result, format, totalAmount, volumeCredits, type) {
   return getPrintAmountOwedAndEarnedModel(type, result, format, totalAmount, volumeCredits);
 }
 
@@ -49,6 +49,10 @@ function formatNumberWithMinimumFractionDigitsOf2() {
 }
 
 function statement(invoice, plays) {
+  return statementByCondition(invoice, plays, "txt");
+}
+
+function statementByCondition(invoice, plays, type) {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
@@ -57,10 +61,10 @@ function statement(invoice, plays) {
     const play = plays[perf.playID];
     let thisAmount = calculateAmount(play, perf);
     volumeCredits = addCredits(volumeCredits, perf, play);
-    result = printOrder(result, play, format, thisAmount, perf, "txt");
+    result = printOrder(result, play, format, thisAmount, perf, type);
     totalAmount += thisAmount;
   }
-  result = printAmountOwedAndEarned(result, format, totalAmount, volumeCredits, "txt");
+  result = printAmountOwedAndEarned(result, format, totalAmount, volumeCredits, type);
   return result;
 }
 
