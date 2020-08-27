@@ -50,14 +50,6 @@ function formatNumberWithMinimumFractionDigitsOf2() {
   return format;
 }
 
-function statement(invoice, plays) {
-  return statementByCondition(invoice, plays, "txt");
-}
-
-function statementByHtml(invoice, plays) {
-  return statementByCondition(invoice, plays, "html");
-}
-
 function printStatement(invoice,result, type) {
   return getPrintStatementModel(type,result, invoice);
 }
@@ -77,6 +69,14 @@ function statementByCondition(invoice, plays, type) {
   }
   result = printAmountOwedAndEarned(result, format, totalAmount, volumeCredits, type);
   return result;
+}
+
+function statement(invoice, plays) {
+  return statementByCondition(invoice, plays, "txt");
+}
+
+function statementByHtml(invoice, plays) {
+  return statementByCondition(invoice, plays, "html");
 }
 
 module.exports = {

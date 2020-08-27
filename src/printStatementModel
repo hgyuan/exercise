@@ -1,5 +1,6 @@
 let model = {
   "txt": printStatementByTxt,
+  "html": printStatementByHtml,
 }
 
 function printStatementByTxt(result, invoice) {
@@ -7,7 +8,14 @@ function printStatementByTxt(result, invoice) {
   return result;
 }
 
-function getPrintStatementModel(type,result, invoice) {
+function printStatementByHtml(result, invoice) {
+  result = `<h1>Statement for ${invoice.customer}</h1>\n`;
+  result += `<table>\n`;
+  result += `<tr><th>play</th><th>seats</th><th>cost</th></tr>`;
+  return result;
+}
+
+function getPrintStatementModel(type, result, invoice) {
   return model[type](result, invoice);
 }
 

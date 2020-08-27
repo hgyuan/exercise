@@ -1,12 +1,15 @@
 let model = {
   "txt": printOrderByTxt,
-  "html": function () {
-
-  }
+  "html": printOrderByHtml
 }
 
 function printOrderByTxt(result, play, format, thisAmount, perf) {
   result += ` ${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats)\n`;
+  return result;
+}
+
+function printOrderByHtml(result, play, format, thisAmount, perf) {
+  result += ` <tr><td>${play.name}</td><td>${perf.audience}</td><td>${format(thisAmount / 100)}</td></tr>\n`;
   return result;
 }
 
