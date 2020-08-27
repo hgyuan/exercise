@@ -1,0 +1,20 @@
+let model = {
+  "txt": printOrderByTxt,
+  "html": function () {
+
+  }
+}
+
+function printOrderByTxt(result, play, format, thisAmount, perf) {
+  result += ` ${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats)\n`;
+  return result;
+}
+
+function getPrintOrderModel(type, result, play, format, thisAmount, perf) {
+  return model[type](result, play, format, thisAmount, perf)
+}
+
+module.exports = {
+  getPrintOrderModel,
+};
+

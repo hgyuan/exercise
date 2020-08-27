@@ -1,3 +1,5 @@
+const {getPrintOrderModel} = require('../src/printOrderModel');
+
 function calculateAmount(play, perf) {
   let thisAmount = 0;
   switch (play.type) {
@@ -28,10 +30,8 @@ function addCredits(volumeCredits, perf, play) {
   return volumeCredits;
 }
 
-function printOrder(result, play, format, thisAmount, perf) {
-  //print line for this order
-  result += ` ${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats)\n`;
-  return result;
+function printOrder(result, play, format, thisAmount, perf, type) {
+  return result = getPrintOrderModel(type, result, play, format, thisAmount, perf);
 }
 
 function printAmountOwedAndEarned(result, format, totalAmount, volumeCredits) {
@@ -49,7 +49,7 @@ function formatNumberWithMinimumFractionDigitsOf2() {
   return format;
 }
 
-function statement (invoice, plays) {
+function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `Statement for ${invoice.customer}\n`;
@@ -58,10 +58,10 @@ function statement (invoice, plays) {
     const play = plays[perf.playID];
     let thisAmount = calculateAmount(play, perf);
     volumeCredits = addCredits(volumeCredits, perf, play);
-    result = printOrder(result, play, format, thisAmount, perf);
+    result = printOrder(result, play, format, thisAmount, perf, "txt");
     totalAmount += thisAmount;
   }
-  result = printAmountOwedAndEarned(result, format, totalAmount, volumeCredits);
+  result = printAmountOwedAndEarned(result, format, totalAmount, volumeCredits, "txt");
   return result;
 }
 
