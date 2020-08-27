@@ -1,5 +1,7 @@
 const {getPrintOrderModel} = require('../src/printOrderModel');
 const {getPrintAmountOwedAndEarnedModel} = require('../src/printAmountOwedAndEarnedModel');
+const {getPrintStatementModel} = require('../src/printStatementModel');
+
 
 function calculateAmount(play, perf) {
   let thisAmount = 0;
@@ -52,10 +54,19 @@ function statement(invoice, plays) {
   return statementByCondition(invoice, plays, "txt");
 }
 
+function statementByHtml(invoice, plays) {
+  return statementByCondition(invoice, plays, "html");
+}
+
+function printStatement(invoice,result, type) {
+  return getPrintStatementModel(type,result, invoice);
+}
+
 function statementByCondition(invoice, plays, type) {
   let totalAmount = 0;
   let volumeCredits = 0;
-  let result = `Statement for ${invoice.customer}\n`;
+  let result = "";
+  result = printStatement(invoice,result, type);
   const format = formatNumberWithMinimumFractionDigitsOf2();
   for (let perf of invoice.performances) {
     const play = plays[perf.playID];
@@ -70,4 +81,5 @@ function statementByCondition(invoice, plays, type) {
 
 module.exports = {
   statement,
+  statementByHtml
 };

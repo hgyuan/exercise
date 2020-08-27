@@ -1,0 +1,17 @@
+let model = {
+  "txt": printStatementByTxt,
+}
+
+function printStatementByTxt(result, invoice) {
+  result = `Statement for ${invoice.customer}\n`;
+  return result;
+}
+
+function getPrintStatementModel(type,result, invoice) {
+  return model[type](result, invoice);
+}
+
+module.exports = {
+  getPrintStatementModel,
+};
+
