@@ -34,6 +34,12 @@ function printOrder(result, play, format, thisAmount, perf) {
   return result;
 }
 
+function printAmountOwedAndEarned(result, format, totalAmount, volumeCredits) {
+  result += `Amount owed is ${format(totalAmount / 100)}\n`;
+  result += `You earned ${volumeCredits} credits \n`;
+  return result;
+}
+
 function statement (invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
@@ -50,8 +56,7 @@ function statement (invoice, plays) {
     result = printOrder(result, play, format, thisAmount, perf);
     totalAmount += thisAmount;
   }
-  result += `Amount owed is ${format(totalAmount / 100)}\n`;
-  result += `You earned ${volumeCredits} credits \n`;
+  result = printAmountOwedAndEarned(result, format, totalAmount, volumeCredits);
   return result;
 }
 
