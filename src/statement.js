@@ -28,6 +28,12 @@ function addCredits(volumeCredits, perf, play) {
   return volumeCredits;
 }
 
+function printOrder(result, play, format, thisAmount, perf) {
+  //print line for this order
+  result += ` ${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats)\n`;
+  return result;
+}
+
 function statement (invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
@@ -41,8 +47,7 @@ function statement (invoice, plays) {
     const play = plays[perf.playID];
     let thisAmount = calculateAmount(play, perf);
     volumeCredits = addCredits(volumeCredits, perf, play);
-    //print line for this order
-    result += ` ${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats)\n`;
+    result = printOrder(result, play, format, thisAmount, perf);
     totalAmount += thisAmount;
   }
   result += `Amount owed is ${format(totalAmount / 100)}\n`;
