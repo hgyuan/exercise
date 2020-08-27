@@ -1,4 +1,5 @@
 const {getPrintOrderModel} = require('../src/printOrderModel');
+const {getPrintAmountOwedAndEarnedModel} = require('../src/printAmountOwedAndEarnedModel');
 
 function calculateAmount(play, perf) {
   let thisAmount = 0;
@@ -34,10 +35,8 @@ function printOrder(result, play, format, thisAmount, perf, type) {
   return result = getPrintOrderModel(type, result, play, format, thisAmount, perf);
 }
 
-function printAmountOwedAndEarned(result, format, totalAmount, volumeCredits) {
-  result += `Amount owed is ${format(totalAmount / 100)}\n`;
-  result += `You earned ${volumeCredits} credits \n`;
-  return result;
+function printAmountOwedAndEarned(result, format, totalAmount, volumeCredits,type) {
+  return getPrintAmountOwedAndEarnedModel(type, result, format, totalAmount, volumeCredits);
 }
 
 function formatNumberWithMinimumFractionDigitsOf2() {

@@ -1,0 +1,20 @@
+let model = {
+  "txt": printAmountOwedAndEarnedByTxt,
+  "html": function () {
+
+  }
+}
+
+function printAmountOwedAndEarnedByTxt(result, format, totalAmount, volumeCredits) {
+  result += `Amount owed is ${format(totalAmount / 100)}\n`;
+  result += `You earned ${volumeCredits} credits \n`;
+  return result;
+}
+
+function getPrintAmountOwedAndEarnedModel(type, result, format, totalAmount, volumeCredits) {
+  return model[type](result, format, totalAmount, volumeCredits)
+}
+
+module.exports = {
+  getPrintAmountOwedAndEarnedModel,
+};
